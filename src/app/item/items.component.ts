@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
+import { Color } from "tns-core-modules/color/color";
 
 @Component({
     selector: "ns-items",
@@ -117,10 +118,35 @@ export class ItemsComponent implements OnInit {
     console.log(`pageChanged ${JSON.stringify(index)}`);
     debugObj(index);
   }
+
+  // animation testing
+
+   @ViewChild('labelAnimation') labelAnimation: ElementRef;
+   
+  startAnimation() {
+    this.labelAnimation.nativeElement.animate({
+      opacity: 0.75,
+      backgroundColor: new Color("Blue"),
+      translate: { x: 200, y: 200 },
+      scale: { x: 2, y: 2 },
+      rotate: 180,
+      duration: 3000,
+      delay: 20,
+      iterations: 5
+  }).then(() => {
+      console.log("Animation finished.");
+  }).catch((e) => {
+      console.log(e.message);
+  });
+  }
 }
 
 function debugObj(obj: any) {
   for (const key of Object.keys(obj)) {
     console.log(`${key} = ${obj[key]}`);
   }
+
+
+
+  
 }
